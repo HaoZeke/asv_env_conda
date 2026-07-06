@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asv_env_conda"
-version = "0.1.0"
+version = "0.1.2"
 description = "ASV environment plugin (conda) — install and list in asv.conf.json plugins"
-requires-python = ">=3.9"
-dependencies = ["asv>=0.6.5"]
+requires-python = ">=3.10"
+dependencies = ["asv>=0.6.5", "packaging"]
 
 [project.entry-points."asv.plugins"]
 conda = "asv_env_conda"
