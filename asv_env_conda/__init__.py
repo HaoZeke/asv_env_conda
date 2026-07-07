@@ -125,13 +125,15 @@ class Conda(environment.Environment):
     def _matches(cls, python):
         if not re.match(r'^[0-9].*$', python):
             return False
-        else:
+        try:
             conda = _find_conda()
-            try:
-                with _conda_lock():
-                    return util.search_channels(conda, "python", python)
-            except util.ProcessError:
-                return False
+        except OSError:
+            return False
+        try:
+            with _conda_lock():
+                return util.search_channels(conda, "python", python)
+        except (util.ProcessError, OSError, Exception):
+            return False
 
     def _setup(self):
         log.info(f"Creating conda environment for {self.name}")
