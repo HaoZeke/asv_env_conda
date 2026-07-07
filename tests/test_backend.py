@@ -1,8 +1,6 @@
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
-"""Smoke tests for asv_env_conda."""
-
 import asv_env_conda
-from asv_env_conda import Conda
+from asv_env_conda import Conda, _conda_works, _find_conda
 
 
 def test_tool_name():
@@ -11,14 +9,16 @@ def test_tool_name():
 
 
 def test_matches_does_not_crash_without_conda(monkeypatch):
-    """matches must not raise when conda is missing; may return False."""
-
     def _boom():
         raise OSError("no conda")
 
     monkeypatch.setattr(asv_env_conda, "_find_conda", _boom)
     Conda._matches_cache.clear()
     assert Conda.matches("3.12") is False
+
+
+def test_conda_works_rejects_missing(tmp_path):
+    assert _conda_works(str(tmp_path / "nope")) is False
 
 
 def test_entry_point_metadata():
