@@ -1,3 +1,14 @@
+"""ASV ``environment_type="conda"`` backend (conda CLI).
+
+Out-of-tree packaging of the classic conda shell/CLI environment manager.
+Stage-1 ASV may also ship an in-tree ``asv.plugins.conda`` with the same
+``tool_name``; **in-tree registration wins** when both are present. Use this
+package when the host ASV build omits optional in-tree env backends, or as
+the extract target for a future virtualenv-only core.
+
+Discovery: entry point group ``asv.environment_backends``, name ``conda``.
+"""
+
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
 import contextlib
 import os
@@ -245,3 +256,5 @@ class Conda(environment.Environment):
         # Run pip via python -m pip, so that it works on Windows when
         # upgrading pip itself, and avoids shebang length limit on Linux
         return self.run_executable("python", ["-m", "pip"] + list(args), **kwargs)
+
+__all__ = ["Conda", "_conda_lock", "_find_conda"]

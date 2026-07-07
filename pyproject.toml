@@ -4,13 +4,23 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "asv_env_conda"
-version = "0.1.2"
-description = "ASV environment plugin (conda) — install and list in asv.conf.json plugins"
+version = "0.2.0"
+description = "ASV environment backend for environment_type=conda (conda CLI)"
+readme = "README.md"
 requires-python = ">=3.10"
+license = { text = "BSD-3-Clause" }
 dependencies = ["asv>=0.6.5", "packaging"]
 
+# Stage-1 discovery group (preferred)
+[project.entry-points."asv.environment_backends"]
+conda = "asv_env_conda:Conda"
+
+# Legacy group still accepted by older ASV / transitional discover
 [project.entry-points."asv.plugins"]
-conda = "asv_env_conda"
+conda = "asv_env_conda:Conda"
+
+[project.optional-dependencies]
+test = ["pytest"]
 
 [tool.setuptools.packages.find]
 include = ["asv_env_conda*"]
