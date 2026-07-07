@@ -1,8 +1,7 @@
 """ASV ``environment_type="conda"`` backend (conda CLI).
 
 Out-of-tree packaging of the classic conda shell/CLI environment manager.
-Stage-1 ASV may also ship an in-tree ``asv.plugins.conda`` with the same
-``tool_name``; **in-tree registration wins** when both are present. Use this
+Core ASV does not ship an in-tree ``asv.plugins.conda`` with the same
 package when the host ASV build omits optional in-tree env backends, or as
 the extract target for a future virtualenv-only core.
 
