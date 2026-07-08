@@ -1,5 +1,7 @@
 # asv_env_conda
 
+> **Not a Rust/maturin backend.** Primary path: conda CLI (not a Rust backend). For Rust-backed conda-ecosystem creates use asv_env_rattler / asv_env_pixi (py-rattler).
+
 ASV environment backend for `environment_type = "conda"` (conda CLI).
 
 Core ASV (extract design) ships only **virtualenv** and **existing**.
