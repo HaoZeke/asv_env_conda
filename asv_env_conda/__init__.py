@@ -104,6 +104,11 @@ class Conda(environment.Environment):
     """Manage an environment using the conda CLI."""
 
     tool_name = "conda"
+    matrix_install_mode = "post"
+    supports_joint_pypi_conda_solve = False
+    supports_joint_pypi_solve = False
+    project_install_prefers_no_deps = False
+    requires_host_tool = "conda"
     _matches_cache = {}
 
     def __init__(self, conf, python, requirements, tagged_env_vars):

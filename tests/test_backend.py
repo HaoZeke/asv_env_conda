@@ -32,3 +32,4 @@ def test_entry_point_metadata():
     names = {ep.name: ep.value for ep in group if ep.name == "conda"}
     assert "conda" in names
     assert "asv_env_conda" in names["conda"]
+
