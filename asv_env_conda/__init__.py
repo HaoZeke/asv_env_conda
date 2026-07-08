@@ -21,11 +21,28 @@ from asv.console import log
 
 WIN = os.name == "nt"
 
-util.new_multiprocessing_lock("conda_lock")
+_LOCK_NAME = "conda_lock"
+_lock_ready = False
+
+
+def _ensure_conda_lock():
+    """Create the process lock lazily (import must not require /dev/shm)."""
+    global _lock_ready
+    if _lock_ready:
+        return
+    try:
+        util.get_multiprocessing_lock(_LOCK_NAME)
+        _lock_ready = True
+        return
+    except KeyError:
+        pass
+    util.new_multiprocessing_lock(_LOCK_NAME)
+    _lock_ready = True
 
 
 def _conda_lock():
-    return util.get_multiprocessing_lock("conda_lock")
+    _ensure_conda_lock()
+    return util.get_multiprocessing_lock(_LOCK_NAME)
 
 
 @contextlib.contextmanager
